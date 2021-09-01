@@ -1,7 +1,7 @@
 for i in range(3) :
 	result = sum(list(map(int, input().split())))
 	if result == 0 :
-		print("E")
+		print("D")
 	elif result == 1 :
 		print("C")
 	elif result == 2 :
@@ -9,4 +9,4 @@ for i in range(3) :
 	elif result == 3 :
 		print("A")
 	elif result == 4 :
-		print("D")
+		print("E")
