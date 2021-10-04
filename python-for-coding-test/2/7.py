@@ -1,15 +1,14 @@
 data = input()
 x = int(data[1])
 y = ord(data[0]) - ord('a') + 1
-dx = [-2, -2, -1, 1, 2, 2, 1, -1]
-dy = [-1, 1, 2, 2, 1, -1, -2, -2]
+# dx = [-2, -2, -1, 1, 2, 2, 1, -1]
+# dy = [-1, 1, 2, 2, 1, -1, -2, -2]
+steps = [(-2, -1), (-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2)]
 count = 0
 
-for i in range(len(dx)):
-	new_x = x + dx[i]
-	new_y = y + dy[i]
-	if new_x < 1 or new_x > 8 or new_y < 1 or new_y > 8:
-		continue
-	else:
+for step in steps:
+	new_x = x + step[0]
+	new_y = y + step[1]
+	if new_x >= 1 and new_x <= 8 and new_y >= 1 and new_y <= 8:
 		count += 1
 print(count)
