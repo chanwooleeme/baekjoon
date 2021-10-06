@@ -23,5 +23,5 @@ def my_quick_sort(arr, start, end):
 	my_quick_sort(arr, start, right - 1)
 	my_quick_sort(arr, right + 1, end)
 
-my_quick_sort(test_arr, 0, len(test_arr) - 1)
-print(test_arr)
+my_quick_sort(arr, 0, len(arr) - 1)
+print(arr)
