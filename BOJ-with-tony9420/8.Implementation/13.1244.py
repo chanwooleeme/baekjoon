@@ -14,13 +14,26 @@ for _ in range(T):
         for i in range(num, L, num):
             _list[i] = int(not _list[i])
     else:
-        _list[num] = int(not _list[num])
-        if num != 1:
-            i = 1
-            while True:
-                if num - i < 1 and num + i > L:
-                    break
+        i = 0
+        cnt = 0
+        while True:
+            if i == 0:
+                i = 1
+                continue
+            if 1 <= num - i and num + i < L:
+                if _list[num - i] == _list[num + i]:
+                    i += 1
+                    cnt += 1
                 else:
-                    
-            
-print(_list)
+                    break
+            else:
+                break
+        for j in range(num - cnt, num + cnt + 1):
+            _list[j] = int(not _list[j])
+        
+_list = _list[1:]
+
+i = 0
+while i < len(_list) + 1:
+    print(*_list[i:i + 20])
+    i += 20
