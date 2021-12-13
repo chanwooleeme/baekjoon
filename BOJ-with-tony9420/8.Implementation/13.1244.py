@@ -5,12 +5,22 @@ def input():
 
 N = int(input())
 
-switch_list = [-1] + list(map(int, input().split()))
-L = len(switch_list)
+_list = [-1] + list(map(int, input().split()))
+L = len(_list)
 T = int(input())
 for _ in range(T):
-    gender, switch_num = map(int, input().split())
-    if switch_num == 1:
-        for i in range(switch_num, L, switch_num):
-            switch_list[i] = int(not switch_list[i])
-print(switch_list)
+    gender, num = map(int, input().split())
+    if gender == 1:
+        for i in range(num, L, num):
+            _list[i] = int(not _list[i])
+    else:
+        _list[num] = int(not _list[num])
+        if num != 1:
+            i = 1
+            while True:
+                if num - i < 1 and num + i > L:
+                    break
+                else:
+                    
+            
+print(_list)
