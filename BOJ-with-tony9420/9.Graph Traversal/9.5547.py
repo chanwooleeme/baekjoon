@@ -1,49 +1,33 @@
-import sys
 from collections import deque
+from sys import stdin
+input = stdin.readline
 
-def input():
-    return sys.stdin.readline().rstrip()
-
-def valid(x, y):
-    if x < 0 or y < 0 or x >= w or y >= h:
-        return False
-    return True
-
-q = deque()
 w, h = map(int, input().split())
-board = [[0] * w]
-for _ in range(h):
-    board.append([0] + list(map(int, input().split())) + [0])
-board.append([0] * w)
-odd_dx = [-1, -1, 0, 1, 1, 0]
-odd_dy = [0, -1, -1, -1, 0, 1]
-even_dx = [-1, -1, 0, 1, 1, 0]
-even_dy = [0, 1, 1, 1, 0, -1]
+graph = [[0 for _ in range(w+2)] for _ in range(h+2)] # +2씩 해준다. 외밖과 닿는 면을 다 흰색정육각형으로 둘러준다.
+for i in range(1, h+1):
+    graph[i][1:w+1] = map(int, input().split())
 
-for i in range(h):
-    for j in range(w):
-        if not board[i][j]:
-            q.append((i, j))
-result = 0
-while not q:
-    x, y = q.popleft()
+dy = [0, 1, 1, 0, -1, -1]
+dx = [[1, 0, -1, -1, -1, 0], [1, 1, 0, -1, 0, 1]] # 짝수줄, 홀수줄 범위내 이동거리 설정
+
+def bfs(y, x):
+    queue = deque()
+    queue.append((y, x))
+    visited = [[False for _ in range(w+2)] for _ in range(h+2)] # 방문체크 배열 생성
+    visited[y][x] = True
     cnt = 0
-    if x % 2 == 0:
+    while queue:
+        y, x = queue.popleft()
+
         for i in range(6):
-            nx = x + even_dx[i]
-            ny = y + even_dy[i]
-            if not valid(nx, ny):
-                continue
-            if board[nx][ny]:
-                cnt += 1
-    else:
-        for i in range(6):
-            nx = x + even_dx[i]
-            ny = y + even_dy[i]
-            if not valid(nx, ny):
-                continue
-            if board[nx][ny]:
-                cnt += 1
-    if cnt != 6:
-        result += cnt
-print(result)
+            yy = y + dy[i]
+            xx = x + dx[y % 2][i]
+            if 0 <= yy < h+2 and 0 <= xx < w+2:
+                if graph[yy][xx] == 0 and not visited[yy][xx]:
+                    queue.append((yy, xx))
+                    visited[yy][xx] = True
+                elif graph[yy][xx] == 1:
+                    cnt += 1
+    return cnt
+
+print(bfs(0, 0))
