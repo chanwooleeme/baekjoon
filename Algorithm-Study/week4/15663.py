@@ -1,28 +1,17 @@
 import sys
-sys.setrecursionlimit(10**9)
+from itertools import permutations
+import itertools
 
 def input():
     return sys.stdin.readline().rstrip()
-        
-N = int(input())
-graph = [[0] for _ in range(N + 1)]
-visited = [False] * (N + 1)
-answer = []
 
-for _ in range(1, N):
-    k, v = map(int, input().split())
-    graph[k].append(v)
-    graph[v].append(k)
+N, M = map(int, input().split())
 
-def dfs(cur, parent):
-    if not visited[cur]:
-        visited[cur] = True
-        answer.append([cur, parent])
-        for node in graph[cur]:
-            dfs(node, cur)
-dfs(1, 1)
-
-answer = answer[2:]
-answer.sort()
-for item in answer:
-    print(item[1])
+data = list(map(int, input().split()))
+result = permutations(data, M)
+result = list(set(result))
+result.sort()
+for item in result:
+    for i in item:
+        print(i, end=' ')
+    print()
