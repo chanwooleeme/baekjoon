@@ -1,10 +1,7 @@
 T = int(input())
 for _ in range(T):
     n = int(input())
-    li = [0] * (n+1)
-    li[1] = 1
-    li[2] = 2
-    li[3] = 4
+    li = [0, 1, 2, 4] + [0] * (n-3)
     if n < 4:
         print(li[n])
     else:
