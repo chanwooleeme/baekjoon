@@ -1,32 +1,32 @@
-s = "aabbaccc"
-answer = len(s)
-for i in range(1, len(s)):
-    tmp = []
+def zip(li):
     result = ""
-    # 일단 자르고
-    for j in range(0, len(s), i):
-        tmp.append(s[j:i+j])
-    # 잘린게 같은지 확인
-    sep_list = []
-    cur = []
-    for t in tmp:
-        if not cur:
-            sep_list.append(1)
-            sep_list.append(t)
-            cur = t
+    cnt = 1
+    for i in range(1, len(li)):
+        if li[i - 1] == li[i]:
+            cnt += 1
         else:
-            if cur == t:
-                sep_list.pop()
-                v = sep_list.pop()
-                sep_list.append(v + 1)
-                sep_list.append(t)
+            if cnt == 1:
+                result += li[i -1]
             else:
-                cur = t
-                sep_list.append(1)
-                sep_list.append(t)
-    sep_list = list(map(str, sep_list))
-    for item in sep_list:
-        if item != '1':
-            result += item
-    answer = min(answer, len(result))
-print(answer)
+                result += str(cnt)
+                result += li[i - 1]
+                cnt = 1
+    if cnt != 1:
+        result += str(cnt)
+    result += li[-1]
+        
+    return len(result)
+        
+def split(s, l):
+    li = []
+    for i in range(0, len(s), l):
+        li.append(s[i:i+l])
+    return li
+            
+def solution(s):
+    answer = 10e9
+    for l in range(1, len(s) + 1):
+        answer = min(answer, zip(split(s, l)))
+    return answer
+
+solution("aabbaccc")
