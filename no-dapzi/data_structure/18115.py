@@ -21,3 +21,4 @@ if __name__ == '__main__':
         else:
             q.append(i+1)
     print(" ".join(map(str, q)))
+    
